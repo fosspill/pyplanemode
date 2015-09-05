@@ -19,11 +19,7 @@ def message(data=None):
   msg.run()
   msg.destroy()
  
-def open_app(data=None):
-  message(data)
- 
 def close_app(data=None):
-  message(data)
   gtk.main_quit()
  
 def make_menu(event_button, event_time, data=None):
