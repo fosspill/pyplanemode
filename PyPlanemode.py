@@ -12,7 +12,14 @@ sys.path.insert(0, pygtklibdir)
 class SystrayIconApp:
 	def __init__(self):
 		self.tray = gtk.StatusIcon()
-		self.tray.set_from_stock(gtk.STOCK_PREFERENCES) 
+		
+		if airplanemode():
+			iconname="plane-on"
+		else:
+			iconname="plane-off"
+			
+#		self.tray.set_from_stock(gtk.STOCK_PREFERENCES)
+		self.tray.set_from_icon_name(iconname) 
 		self.tray.connect('popup-menu', self.on_right_click)
 		self.tray.set_tooltip(('Pyplanemode'))
 		
@@ -23,25 +30,20 @@ class SystrayIconApp:
 	def make_menu(self, event_button, event_time):
 		menu = gtk.Menu()
 
-		try:
-			output = check_output(["rfkill", "list"])
-		except CalledProcessError as e:
-			output=(e.returncode)
-			
-		#dirty way to check if airplane mode is on or not... only works with english operating systems :D
-		if "yes" not in output:
-			# Add ON button
-			on = gtk.MenuItem("Turn on airplane mode")
-			on.show()
-			menu.append(on)
-			on.connect('activate', self.airplanemode_on)
-		else:
+		
+		if airplanemode():
 			# Add OFF button
 			off = gtk.MenuItem("Turn off airplane mode")
 			off.show()
 			menu.append(off)
 			off.connect('activate', self.airplanemode_off)
-		
+		else:
+			# Add ON button
+			on = gtk.MenuItem("Turn on airplane mode")
+			on.show()
+			menu.append(on)
+			on.connect('activate', self.airplanemode_on)
+			
 		# show about dialog
 		about = gtk.MenuItem("About")
 		about.show()
@@ -59,10 +61,13 @@ class SystrayIconApp:
 
 	def airplanemode_on(self, widget):
 		call(["gksudo", "rfkill block all"])
+		iconname="plane-on"
+		self.tray.set_from_icon_name(iconname) 
 
 	def airplanemode_off(self, widget):
 		call(["gksudo", "rfkill unblock all"])
-
+		iconname="plane-off"
+		self.tray.set_from_icon_name(iconname) 
 
 	def  show_about_dialog(self, widget):
 		about_dialog = gtk.AboutDialog()
@@ -75,6 +80,20 @@ class SystrayIconApp:
 		about_dialog.set_authors(['Ole Erik Brennhagen <oleerik@startmail.com>', 'Ivanka Heins'])
 		about_dialog.run()
 		about_dialog.destroy()
+		
+#dirty way to check if airplane mode is on or not... only works with english operating systems :D
+def airplanemode():
+	"This returns true or false depending on airplane mode status"
+	try:
+		output = check_output(["rfkill", "list"])
+	except CalledProcessError as e:
+		output=(e.returncode)
+
+	if "yes" not in output:
+		curstatus=False
+	else:
+		curstatus=True
+	return curstatus
 
 if __name__ == "__main__":
 	SystrayIconApp()
