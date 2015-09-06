@@ -11,7 +11,7 @@ pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
 sys.path.insert(0, pygtklibdir)
 # found on <http://files.majorsilence.com/rubbish/pygtk-book/pygtk-notebook-html/pygtk-notebook-latest.html#SECTION00430000000000000000>
 # simple example of a tray icon application using PyGTK
- 
+
 def message(data=None):
   "Function to display messages to the user."
   msg=gtk.MessageDialog(None, gtk.DIALOG_MODAL,
@@ -92,11 +92,16 @@ def check_for_update():
     return iconname
 
 def update_icon():
-    tray.set_from_icon_name(check_for_update())
-    return True
+    if tray.get_icon_name() == airplanemode():
+      return True
+    else:
+      tray.set_from_icon_name(check_for_update())
+      return True
+    
+    
 
 #Continuesly check for status update
-gobject.timeout_add(100, update_icon)
+gobject.timeout_add(1000, update_icon)
 
  
 if __name__ == '__main__':
