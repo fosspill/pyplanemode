@@ -52,7 +52,7 @@ def show_about_dialog(data=None):
     about_dialog.set_destroy_with_parent (True)
     about_dialog.set_icon_name ("Pyplanemode")
     about_dialog.set_name('Pyplanemode')
-    about_dialog.set_version('0.4')
+    about_dialog.set_version("1.0")
     about_dialog.set_copyright("Copyleft 2015 Ole Erik Brennhagen")
     about_dialog.set_comments(("Fancy airplane mode applet"))
     about_dialog.set_authors(['Ole Erik Brennhagen <oleerik@startmail.com>', 'Ivanka Heins'])
