@@ -1,6 +1,6 @@
 # pyplanemode
 Simple GTK Python applet for airplanemode.
-Requires python2, gtk, pygtk
+Requires python2, gtk, pygtk, rfkill
 
 Install instructions:
 
