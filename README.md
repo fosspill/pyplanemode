@@ -2,9 +2,9 @@
 Simple GTK Python applet for airplanemode.
 Requires python2, gtk, pygtk, rfkill
 
-Install instructions:
+######Install instructions:
 
-"git clone repo" and then move the icons to your /usr/share/icons folder.
+`git clone` the repository and then move the icons to your `/usr/share/icons` folder.
 
 Make the .py file executable and execute.
 
