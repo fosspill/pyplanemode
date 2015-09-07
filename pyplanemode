@@ -72,10 +72,13 @@ def airplanemode():
     except CalledProcessError as e:
         output=(e.returncode)
 
-    if "yes" not in output:
-        curstatus=False
-    else:
-        curstatus=True
+    for line in output.split('\n'):
+      if 'Soft blocked: yes' in line:
+        curstatus = True
+      elif 'Soft blocked: no' in line:
+        curstatus = False
+        break
+
     return curstatus
 
 def toggleairplanemode(data=None):
