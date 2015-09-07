@@ -12,6 +12,8 @@ sys.path.insert(0, pygtklibdir)
 # found on <http://files.majorsilence.com/rubbish/pygtk-book/pygtk-notebook-html/pygtk-notebook-latest.html#SECTION00430000000000000000>
 # simple example of a tray icon application using PyGTK
 
+#Unsused but in the code for debugging purposes.
+#Should in the future be used for possible error messages?
 def message(data=None):
   "Function to display messages to the user."
   msg=gtk.MessageDialog(None, gtk.DIALOG_MODAL,
@@ -66,7 +68,8 @@ def on_left_click(event):
   toggleairplanemode()
   
 def airplanemode():
-    "This returns true or false depending on airplane mode status"
+    #This returns true or false depending on airplane mode status
+    #lacks error handling.
     try:
         output = check_output(["rfkill", "list"])
     except CalledProcessError as e:
