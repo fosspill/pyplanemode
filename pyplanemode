@@ -75,10 +75,14 @@ def airplanemode():
     except CalledProcessError as e:
         output=(e.returncode)
 
-    if "yes" not in output:
-        curstatus=False
-    else:
-        curstatus=True
+    curstatus = False
+    for line in output.split('\n'):
+      if 'Soft blocked: yes' in line:
+        curstatus = True
+      elif 'Soft blocked: no' in line:
+        curstatus = False
+        break
+
     return curstatus
 
 def toggleairplanemode(data=None):
@@ -105,7 +109,6 @@ def update_icon():
 
 #Continuesly check for status update
 gobject.timeout_add(1000, update_icon)
-
  
 if __name__ == '__main__':
   tray = gtk.StatusIcon()
