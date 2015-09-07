@@ -7,5 +7,7 @@ Requires *python2*, *gtk2*, *pygtk2*, *rfkill*
 - `git clone` the repository and then move the icons to your `/usr/share/icons` folder.
 - Make the pyplanemode file executable and execute.
 
+Now available in the testing community repository for Manjaro
+
 
 Made for: https://forum.manjaro.org/index.php?topic=25864.msg220281#msg220281
