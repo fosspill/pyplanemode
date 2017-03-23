@@ -1,3 +1,5 @@
+# MOVED TO GITLAB https://gitlab.com/oleerik/pyplanemode
+
 # pyplanemode
 Simple GTK Python applet for airplanemode.
 Requires *python2*, *gtk2*, *pygtk2*, *rfkill*
